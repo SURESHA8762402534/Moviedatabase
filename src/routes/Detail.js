@@ -14,15 +14,14 @@ const Detail = () => {
     const { id } = useParams();
     const [details, setDetails] = useState({});
 
-    const fetch_fn = async() => {
-        const response = await fetch(`http://www.omdbapi.com/?i=${id}&plot=full&apikey=a08c1dc5`);
+    const fetch_fn = async(id) => {
+        const response = await fetch(`https://www.omdbapi.com/?i=${id}&plot=full&apikey=a08c1dc5`);
         const data = await response.json();
         data.actors_arr = data.Actors.split(", ");
         data.rating_value = data.imdbRating / 2;
-        console.log(data);
         setDetails(data);
     }
-    useEffect(() => { fetch_fn(); }, [id])
+    useEffect(() => { return fetch_fn(id); }, [id])
 
     return (
         <>
